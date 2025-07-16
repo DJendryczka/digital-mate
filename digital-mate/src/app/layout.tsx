@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Home, CheckSquare, Calendar, Bell } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -18,34 +19,32 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-white shadow p-4">
-          <nav className="max-w-4xl mx-auto flex justify-between">
-            <span className="text-xl font-bold text-blue-600">
-              Digital Mate
-            </span>
-            <div className="space-x-4">
-              <Link href="/" className="text-gray-700 hover:text-blue-600">
-                Home
-              </Link>
-              <Link href="/tasks" className="text-gray-700 hover:text-blue-600">
-                Tasks
-              </Link>
-              <Link
-                href="/calendar"
-                className="text-gray-700 hover:text-blue-600"
-              >
-                Calendar
-              </Link>
-              <Link
-                href="/reminders"
-                className="text-gray-700 hover:text-blue-600"
-              >
-                Reminders
-              </Link>
-            </div>
-          </nav>
-        </header>
-        <main className="max-w-4xl mx-auto p-4">{children}</main>
+        <div className="flex min-h-screen">
+          {/* Sidebar */}
+          <aside className="w-16 bg-white border-r shadow flex flex-col items-center py-4 space-y-6">
+            <Link href="/" className="text-gray-600 hover:text-blue-600">
+              <Home size={24} />
+            </Link>
+            <Link href="/tasks" className="text-gray-600 hover:text-blue-600">
+              <CheckSquare size={24} />
+            </Link>
+            <Link
+              href="/calendar"
+              className="text-gray-600 hover:text-blue-600"
+            >
+              <Calendar size={24} />
+            </Link>
+            <Link
+              href="/reminders"
+              className="text-gray-600 hover:text-blue-600"
+            >
+              <Bell size={24} />
+            </Link>
+          </aside>
+
+          {/* Główna treść */}
+          <main className="flex-1 p-6">{children}</main>
+        </div>
       </body>
     </html>
   );

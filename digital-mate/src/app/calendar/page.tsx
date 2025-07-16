@@ -1,10 +1,16 @@
 'use client'
 
-import { Scheduler } from '@aldabil/react-scheduler'
+import dynamic from 'next/dynamic'
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
 
+// ⏩ dociągamy tylko w przeglądarce
+const Scheduler = dynamic(
+  () => import('@aldabil/react-scheduler').then(mod => mod.Scheduler),
+  { ssr: false, loading: () => <p>Loading scheduler…</p> }
+)
+
 export default function CalendarPage() {
-  const theme = createTheme()   // domyślny motyw MUI
+  const theme = createTheme()
 
   return (
     <ThemeProvider theme={theme}>
@@ -13,13 +19,13 @@ export default function CalendarPage() {
         <h2 className="mb-4 text-2xl font-semibold">Scheduler</h2>
 
         <Scheduler
-          view="week"            // startowy widok: day | week | month
+          view="week"
           events={[
             {
               event_id: 1,
               title: 'Demo task',
               start: new Date(),
-              end:   new Date(new Date().getTime() + 60 * 60 * 1000), // +1 h
+              end:   new Date(Date.now() + 60 * 60 * 1000),
             },
           ]}
         />
