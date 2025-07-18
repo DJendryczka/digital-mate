@@ -15,7 +15,7 @@ export default function WeatherPage() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        const apiKey = "dd5a3b6fd55949a59b7f2a5b48edaf6e";
+        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=en&appid=${apiKey}`;
 
         try {
