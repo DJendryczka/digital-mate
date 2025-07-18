@@ -46,7 +46,7 @@ export default function RootLayout({
           </aside>
 
           {/* Główna treść */}
-          <main className="flex-1 p-6">{children}</main>
+          <main className="flex-1 p-6 overflow-auto">{children}</main>
         </div>
       </body>
     </html>
