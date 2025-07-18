@@ -9,10 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aldabil/react-scheduler": "^3.1.2",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^7.2.0",
+    "@daypilot/daypilot-lite-react": "^4.2.0",
     "@mui/material": "^7.2.0",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.525.0",

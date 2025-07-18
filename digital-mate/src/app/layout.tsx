@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Home, CheckSquare, Calendar, Bell } from "lucide-react";
+import { Home, CheckSquare, Calendar, Bell, CloudSun } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex min-h-screen">
+        <div className="flex h-screen overflow-hidden">
           {/* Sidebar */}
           <aside className="w-16 bg-white border-r shadow flex flex-col items-center py-4 space-y-6">
             <Link href="/" className="text-gray-600 hover:text-blue-600">
@@ -39,6 +39,9 @@ export default function RootLayout({
               className="text-gray-600 hover:text-blue-600"
             >
               <Bell size={24} />
+            </Link>
+            <Link href="/weather" className="text-gray-600 hover:text-blue-600">
+              <CloudSun size={24} />
             </Link>
           </aside>
 

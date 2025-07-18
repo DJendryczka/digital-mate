@@ -1,35 +1,59 @@
 'use client'
 
-import dynamic from 'next/dynamic'
-import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
-
-// ⏩ dociągamy tylko w przeglądarce
-const Scheduler = dynamic(
-  () => import('@aldabil/react-scheduler').then(mod => mod.Scheduler),
-  { ssr: false, loading: () => <p>Loading scheduler…</p> }
-)
+import { useState } from 'react'
+import {
+  DayPilot,
+  DayPilotCalendar,
+  DayPilotMonth
+} from '@daypilot/daypilot-lite-react'
 
 export default function CalendarPage() {
-  const theme = createTheme()
+  const [view, setView] = useState<'Day' | 'Week' | 'Month'>('Week')
+
+  const events = [
+    {
+      id: 1,
+      text: 'Demo task',
+      start: DayPilot.Date.today().addHours(9),
+      end: DayPilot.Date.today().addHours(10),
+    },
+  ]
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <section className="py-4">
-        <h2 className="mb-4 text-2xl font-semibold">Scheduler</h2>
+    <div className="py-4">
+      <h2 className="mb-4 text-2xl font-semibold">Scheduler</h2>
 
-        <Scheduler
-          view="week"
-          events={[
-            {
-              event_id: 1,
-              title: 'Demo task',
-              start: new Date(),
-              end:   new Date(Date.now() + 60 * 60 * 1000),
-            },
-          ]}
+      {/* przełącznik */}
+      <div className="mb-4 inline-flex rounded border">
+        {(['Day', 'Week', 'Month'] as const).map(v => (
+          <button
+            key={v}
+            onClick={() => setView(v)}
+            className={`px-4 py-2 text-sm ${
+              view === v ? 'bg-blue-600 text-white' : 'hover:bg-gray-100'
+            }`}
+          >
+            {v}
+          </button>
+        ))}
+      </div>
+
+      {/* widok: Day/Week → Calendar */}
+      {view !== 'Month' && (
+        <DayPilotCalendar
+          viewType={view}
+          startDate={DayPilot.Date.today()}
+          events={events}
         />
-      </section>
-    </ThemeProvider>
+      )}
+
+      {/* widok: Month → osobny komponent */}
+      {view === 'Month' && (
+        <DayPilotMonth
+          startDate={DayPilot.Date.today()}
+          events={events}
+        />
+      )}
+    </div>
   )
 }
